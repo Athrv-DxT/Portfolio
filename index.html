@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Athrv Dixit</title>
+</head>
+<body>
+    <canvas id="neural-network"></canvas>
+  
+    <div class="container">
+        <div class="intro-section" id="intro-section">
+            <div class="loader-container">
+                <div class="typed-greeting">
+                    <span id="greeting-text"></span><span class="cursor" id="greeting-cursor"></span>
+                </div>
+                
+                <div class="modern-loader" id="modern-loader">
+                    <div class="circle-loader"></div>
+                    <div class="bars-loader">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="details-section" id="details-section">
+                <h1 class="name">Athrv Dixit</h1>
+                <h2 class="title">AI/ML Enthusiast and Frontend Developer</h2>
+                <p class="description">
+                    A keen Tech Head with a passion for Artificial Intelligence and Machine Learning. I love to explore the world of technology and create innovative solutions. I am also a frontend developer with a knack for creating beautiful and user-friendly interfaces.
+                </p>
+                
+                <div class="enter-button-container" id="enter-button-container">
+                    <button id="enter-button" class="enter-button">
+                        <span>Explore Portfolio</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="transition-animation" id="transition-animation">
+            <div class="transition-circle"></div>
+            <div class="transition-particles">
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+            </div>
+        </div>
+        
+        <div class="portfolio-section" id="portfolio-section">
+            <header class="portfolio-header">
+                <div class="logo">Athrv Dixit</div>
+                <nav class="portfolio-nav">
+                    <ul>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#testaments">Testaments</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </header>
+            
+            <div class="portfolio-content">
+                <section id="skills" class="section">
+                    <h2>Skills</h2>
+                    <div class="skills-container">
+                        <div class="skill-card" data-skill="data-analytics">
+                            <i class="fas fa-brain"></i>
+                            <h3>Data Analytics & Sciences</h3>
+                            <p>Experienced in analyzing complex datasets and extracting meaningful insights using statistical methods and visualization techniques.</p>
+                        </div>
+                        <div class="skill-card" data-skill="frontend">
+                            <i class="fas fa-code"></i>
+                            <h3>Frontend Development</h3>
+                            <p>Skilled in creating responsive and interactive web interfaces using modern frameworks and design principles.</p>
+                        </div>
+                        <div class="skill-card" data-skill="database">
+                            <i class="fas fa-database"></i>
+                            <h3>Database Management</h3>
+                            <p>Proficient in designing, implementing and optimizing database systems for efficient data storage and retrieval.</p>
+                        </div>
+                        <div class="skill-card" data-skill="ai-ml">
+                            <i class="fas fa-robot"></i>
+                            <h3>AI & ML Development</h3>
+                            <p>Just stepping into the world of Machine Learning and Artificial Intelligence with a foundation in key concepts and techniques.</p>
+                        </div>
+                        <div class="skill-card" data-skill="backend">
+                            <i class="fas fa-server"></i>
+                            <h3>Backend Development</h3>
+                            <p>Building server-side applications and APIs to support frontend functionality and handle data processing.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Overlay  -->
+                    <div class="tech-overlay" id="tech-overlay">
+                        <div class="tech-container" id="data-analytics-tech">
+                            <h3>Data Analytics Technologies</h3>
+                            <div class="tech-badges">
+                                <span class="tech-badge">Python</span>
+                                <span class="tech-badge">Pandas</span>
+                                <span class="tech-badge">NumPy</span>
+                                <span class="tech-badge">Matplotlib</span>
+                                <span class="tech-badge">SQL</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tech-container" id="frontend-tech">
+                            <h3>Frontend Technologies</h3>
+                            <div class="tech-badges">
+                                <span class="tech-badge">HTML5</span>
+                                <span class="tech-badge">CSS3</span>
+                                <span class="tech-badge">JavaScript</span>
+                                <span class="tech-badge">Tkinter</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tech-container" id="database-tech">
+                            <h3>Database Technologies</h3>
+                            <div class="tech-badges">
+                                <span class="tech-badge">MySQL</span>
+                                <span class="tech-badge">SQLite</span>
+                                <span class="tech-badge">MongoDB</span>
+                                <span class="tech-badge">Firebase</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tech-container" id="ai-ml-tech">
+                            <h3>AI & ML Technologies</h3>
+                            <div class="tech-badges">
+                                <span class="tech-badge">scikit-learn</span>
+                                <span class="tech-badge">NLTK</span>
+                                <span class="tech-badge">Python</span>
+                                <span class="tech-badge">Jupyter</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tech-container" id="backend-tech">
+                            <h3>Backend Technologies</h3>
+                            <div class="tech-badges">
+                                <span class="tech-badge">Flask</span>
+                                <span class="tech-badge">RESTful APIs</span>
+                                <span class="tech-badge">Python</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="projects" class="section">
+                    <h2>Projects</h2>
+                    
+                    <div class="projects-filter">
+                        <button class="filter-btn active" data-filter="all">All Projects</button>
+                        <button class="filter-btn" data-filter="landing">Landing Pages</button>
+                        <button class="filter-btn" data-filter="backend">Backend Development</button>
+                        <button class="filter-btn" data-filter="frontend-backend">Frontend + Backend</button>
+                    </div>
+                    
+                    <div class="projects-container">
+                        <!-- Landing Pages Projects -->
+                        <div class="project-card" data-category="landing">
+                            <div class="project-image">
+                                <img src="/api/placeholder/600/400" alt="GFG Student Chapter">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                                        <a href="#" class="project-link" title="GitHub Repository"><i class="fab fa-github"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <h3>GFG Student Chapter</h3>
+                                <p>A responsive landing page for GeeksforGeeks Student Chapter, showcasing the chapter's activities, team members, and upcoming events.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">HTML5</span>
+                                    <span class="tech-tag">CSS3</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-card" data-category="landing">
+                            <div class="project-image">
+                                <img src="/api/placeholder/600/400" alt="iCreate Club Landing Page">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                                        <a href="#" class="project-link" title="GitHub Repository"><i class="fab fa-github"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <h3>iCreate Club Landing Page</h3>
+                                <p>A modern landing page for the iCreate Club, featuring animations, interactive elements and information about club initiatives.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">HTML5</span>
+                                    <span class="tech-tag">CSS3</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-card" data-category="landing">
+                            <div class="project-image">
+                                <img src="/api/placeholder/600/400" alt="iCreate Website">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                                        <a href="#" class="project-link" title="GitHub Repository"><i class="fab fa-github"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <h3>iCreate Website</h3>
+                                <p>A comprehensive website for iCreate with multiple pages including events, gallery, team, and contact sections providing in-depth information about the club.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">HTML5</span>
+                                    <span class="tech-tag">CSS3</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-card" data-category="landing">
+                            <div class="project-image">
+                                <img src="/api/placeholder/600/400" alt="Code Warriors Landing Page">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                                        <a href="#" class="project-link" title="GitHub Repository"><i class="fab fa-github"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <h3>Code Warriors Landing Page</h3>
+                                <p>An engaging landing page for Code Warriors coding community with information about competitions, workshops and membership benefits.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">HTML5</span>
+                                    <span class="tech-tag">CSS3</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">AOS</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Backend Project -->
+                        <div class="project-card" data-category="backend">
+                            <div class="project-image">
+                                <img src="/api/placeholder/600/400" alt="Medical Report Simplifier">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="GitHub Repository"><i class="fab fa-github"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <h3>Medical Report Simplifier</h3>
+                                <p>A backend service that converts complex medical reports into easily understandable summaries using Natural Language Processing techniques.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Flask</span>
+                                    <span class="tech-tag">JSON</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Frontend + Backend Projects -->
+                        <div class="project-card" data-category="frontend-backend">
+                            <div class="project-image">
+                                <img src="/api/placeholder/600/400" alt="QR Scanning System">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                                        <a href="#" class="project-link" title="GitHub Repository"><i class="fab fa-github"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <h3>QR Scanning System</h3>
+                                <p>A full-stack application for generating and scanning QR codes with user authentication and real-time tracking capabilities.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">React</span>
+                                    <span class="tech-tag">Node.js</span>
+                                    <span class="tech-tag">Express</span>
+                                    <span class="tech-tag">MongoDB</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-card" data-category="frontend-backend">
+                            <div class="project-image">
+                                <img src="/api/placeholder/600/400" alt="Code Warriors Platform">
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        <a href="#" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                                        <a href="#" class="project-link" title="GitHub Repository"><i class="fab fa-github"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <h3>Code Warriors Platform</h3>
+                                <p>A comprehensive platform for coding competitions with features like problem submission, automated grading, leaderboards, and user profiles.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">React</span>
+                                    <span class="tech-tag">Node.js</span>
+                                    <span class="tech-tag">Firebase</span>
+                                    <span class="tech-tag">Docker</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="testaments" class="section">
+                    <h2>Testaments</h2>
+                    
+                    <div class="bookshelf-container">
+                        <div class="bookshelf top-shelf">
+                            <div class="book" data-certificate="certificate1">
+                                <div class="book-spine">
+                                    <h3>Python Basics</h3>
+                                </div>
+                            </div>
+                            
+                            <div class="book" data-certificate="certificate2">
+                                <div class="book-spine">
+                                    <h3>Python DSA</h3>
+                                </div>
+                            </div>
+                            
+                            <div class="book" data-certificate="certificate3">
+                                <div class="book-spine">
+                                    <h3>Hackathon</h3>
+                                </div>
+                            </div>
+                            
+                            <div class="book" data-certificate="certificate4">
+                                <div class="book-spine">
+                                    <h3>BCGx Job Sim</h3>
+                                </div>
+                            </div>
+                            
+                            <div class="book" data-certificate="certificate5">
+                                <div class="book-spine">
+                                    <h3>Matlab</h3>
+                                </div>
+                            </div>
+                            
+                            <div class="book" data-certificate="certificate6">
+                                <div class="book-spine">
+                                    <h3>ACWOC</h3>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bookshelf bottom-shelf">
+                            <div class="book appointment-letter" data-certificate="letter1">
+                                <div class="book-spine">
+                                    <h3>Appointment-Letter</h3>
+                                </div>
+                            </div>
+                            
+                            <div class="book appointment-letter" data-certificate="letter2">
+                                <div class="book-spine">
+                                    <h3>Appointment-Letter</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Preview Modal -->
+                    <div class="book-preview" id="book-preview">
+                        <div class="preview-content">
+                            <div class="preview-close"><i class="fas fa-times"></i></div>
+                            <img src="/api/placeholder/800/600" alt="Certificate Preview" class="preview-image" id="preview-image">
+                            <div class="preview-info">
+                                <h3 id="preview-title">Certificate Title</h3>
+                                <p id="preview-description">This certificate was awarded for excellence in the field of study, demonstrating exceptional skills and knowledge in the subject area.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="contact" class="section">
+                    <h2>Contact</h2>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
