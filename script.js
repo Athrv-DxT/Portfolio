@@ -255,49 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Visitor Counter Functionality
-  let visitorCount = parseInt(localStorage.getItem('visitorCount')) || 0;
-  let hasVisited = localStorage.getItem('hasVisited') === 'true';
-  let portfolioEntryTime = null;
-  let visitorCounted = false;
 
-  // Initialize visitor counter display
-  function updateVisitorCounter() {
-    const counterElement = document.getElementById('visitor-count');
-    if (counterElement) {
-      counterElement.textContent = visitorCount;
-    }
-  }
-
-  // Check if visitor should be counted
-  function checkVisitorCount() {
-    if (!hasVisited && portfolioEntryTime && !visitorCounted) {
-      const timeSpent = Date.now() - portfolioEntryTime;
-      if (timeSpent >= 7000) { // 7 seconds
-        visitorCount++;
-        visitorCounted = true;
-        hasVisited = true;
-        localStorage.setItem('visitorCount', visitorCount.toString());
-        localStorage.setItem('hasVisited', 'true');
-        
-        // Update display with animation
-        const counterElement = document.getElementById('visitor-count');
-        if (counterElement) {
-          counterElement.classList.add('updated');
-          counterElement.textContent = visitorCount;
-          setTimeout(() => {
-            counterElement.classList.remove('updated');
-          }, 500);
-        }
-      }
-    }
-  }
-
-  // Initialize counter display
-  updateVisitorCounter();
-
-  // Check visitor count every second after portfolio entry
-  setInterval(checkVisitorCount, 1000);
 
   enterButton.addEventListener('click', () => {
     document.body.classList.add('portfolio-active');
@@ -315,8 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update browser history to show portfolio page
         window.history.pushState({ page: 'portfolio' }, 'Portfolio', '#portfolio');
         
-        // Start tracking time when portfolio becomes visible
-        portfolioEntryTime = Date.now();
+
       }, 100);
     }, 1000);
   });
