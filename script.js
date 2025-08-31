@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const portfolioSection = document.getElementById('portfolio-section');
   const introSection = document.getElementById('intro-section');
   const neuralNetwork = document.getElementById('neural-network');
+  const mobileMessage = document.getElementById('mobile-message');
   const greetings = ['Hello', 'Hola', 'नमस्ते', "I'm"];
   let currentGreetingIndex = 0;
   let finalGreetingShown = false;
@@ -28,12 +29,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
+  
+  // Handle orientation changes for mobile devices
+  window.addEventListener('orientationchange', () => {
+    setTimeout(() => {
+      resizeCanvas();
+      // Recalculate node count and positions after orientation change
+      const newNodeCount = getNodeCount();
+      if (newNodeCount !== nodeCount) {
+        nodes.length = 0;
+        for (let i = 0; i < newNodeCount; i++) {
+          nodes.push(new Node(Math.random() * canvas.width, Math.random() * canvas.height));
+        }
+      }
+    }, 100);
+  });
 
   class Node {
     constructor(x, y) {
       this.x = x;
       this.y = y;
-      this.size = Math.random() * 2 + 2;
+      // Increase node sizes for better mobile visibility
+      const isMobile = window.innerWidth < 768;
+      this.size = isMobile ? (Math.random() * 3 + 3) : (Math.random() * 2 + 2);
       this.speed = Math.random() * 0.5 + 0.2;
       this.velocity = {
         x: (Math.random() - 0.5) * this.speed,
@@ -69,8 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     draw() {
       const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 2);
-      gradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
-      gradient.addColorStop(0.5, 'rgba(255, 235, 59, 0.5)');
+      gradient.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
+      gradient.addColorStop(0.5, 'rgba(255, 235, 59, 0.7)');
       gradient.addColorStop(1, 'rgba(255, 235, 59, 0)');
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size * 2, 0, Math.PI * 2);
@@ -81,9 +99,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function getNodeCount() {
     const width = window.innerWidth;
-    if (width < 480) return Math.min(Math.floor(window.innerWidth * window.innerHeight / 25000), 50);
-    else if (width < 768) return Math.min(Math.floor(window.innerWidth * window.innerHeight / 20000), 75);
-    else return Math.min(Math.floor(window.innerWidth * window.innerHeight / 15000), 100);
+    if (width < 480) return Math.min(Math.floor(window.innerWidth * window.innerHeight / 15000), 80);
+    else if (width < 768) return Math.min(Math.floor(window.innerWidth * window.innerHeight / 12000), 100);
+    else return Math.min(Math.floor(window.innerWidth * window.innerHeight / 10000), 120);
   }
 
   const nodeCount = getNodeCount();
@@ -101,18 +119,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const dx = nodes[i].x - nodes[j].x;
         const dy = nodes[i].y - nodes[j].y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        const connectionDistance = window.innerWidth < 768 ? 100 : 150;
+        const connectionDistance = window.innerWidth < 768 ? 120 : 150;
 
         if (distance < connectionDistance) {
           const opacity = 1 - distance / connectionDistance;
           ctx.beginPath();
           ctx.moveTo(nodes[i].x, nodes[i].y);
           ctx.lineTo(nodes[j].x, nodes[j].y);
-          ctx.strokeStyle = `rgba(186, 104, 200, ${opacity * 0.5})`;
+          // Make connections more visible on mobile
+          const connectionOpacity = window.innerWidth < 768 ? opacity * 0.8 : opacity * 0.5;
+          ctx.strokeStyle = `rgba(186, 104, 200, ${connectionOpacity})`;
           ctx.lineWidth = 1;
           ctx.stroke();
 
-          if (Math.random() < 0.002) {
+          // Increase data transfer frequency for mobile devices
+          const transferProbability = window.innerWidth < 768 ? 0.005 : 0.002;
+          if (Math.random() < transferProbability) {
             animateDataTransfer(nodes[i], nodes[j]);
           }
         }
@@ -135,7 +157,9 @@ document.addEventListener('DOMContentLoaded', () => {
       this.endNode = endNode;
       this.progress = 0;
       this.speed = Math.random() * 0.01 + 0.01;
-      this.size = Math.random() * 3 + 2;
+      // Increase data transfer particle size on mobile
+      const isMobile = window.innerWidth < 768;
+      this.size = isMobile ? (Math.random() * 4 + 3) : (Math.random() * 3 + 2);
     }
 
     update() {
@@ -147,8 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const x = this.startNode.x + (this.endNode.x - this.startNode.x) * this.progress;
       const y = this.startNode.y + (this.endNode.y - this.startNode.y) * this.progress;
       const gradient = ctx.createRadialGradient(x, y, 0, x, y, this.size);
-      gradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
-      gradient.addColorStop(1, 'rgba(111, 134, 214, 0.5)');
+      gradient.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
+      gradient.addColorStop(1, 'rgba(111, 134, 214, 0.7)');
       ctx.beginPath();
       ctx.arc(x, y, this.size, 0, Math.PI * 2);
       ctx.fillStyle = gradient;
@@ -174,6 +198,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   animate();
   updateDataTransfers();
+
+  // Mobile device detection and message
+  function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+           window.innerWidth <= 768;
+  }
+
+  function showMobileMessage() {
+    if (isMobileDevice()) {
+      mobileMessage.classList.add('show');
+      setTimeout(() => {
+        mobileMessage.classList.remove('show');
+      }, 2000);
+    }
+  }
+
+  // Show mobile message after a short delay
+  setTimeout(showMobileMessage, 1000);
 
   modernLoader.style.display = 'block';
 
