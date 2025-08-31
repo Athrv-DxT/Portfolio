@@ -51,17 +51,17 @@ document.addEventListener('DOMContentLoaded', () => {
       this.y = y;
       // Increase node sizes for better mobile visibility
       const isMobile = window.innerWidth < 768;
-      this.size = isMobile ? (Math.random() * 3 + 3) : (Math.random() * 2 + 2);
-      this.speed = Math.random() * 0.5 + 0.2;
+      this.size = isMobile ? (Math.random() * 4 + 4) : (Math.random() * 2 + 2);
+      this.speed = Math.random() * 0.8 + 0.3;
       this.velocity = {
         x: (Math.random() - 0.5) * this.speed,
         y: (Math.random() - 0.5) * this.speed
       };
       this.directionChangeTime = 0;
       this.pulseDirection = Math.random() > 0.5 ? 1 : -1;
-      this.pulseSpeed = Math.random() * 0.02 + 0.01;
+      this.pulseSpeed = Math.random() * 0.03 + 0.015;
       this.originalSize = this.size;
-      this.pulseAmount = Math.random() * 1 + 0.5;
+      this.pulseAmount = Math.random() * 1.5 + 1;
     }
 
     update() {
@@ -99,9 +99,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function getNodeCount() {
     const width = window.innerWidth;
-    if (width < 480) return Math.min(Math.floor(window.innerWidth * window.innerHeight / 15000), 80);
-    else if (width < 768) return Math.min(Math.floor(window.innerWidth * window.innerHeight / 12000), 100);
-    else return Math.min(Math.floor(window.innerWidth * window.innerHeight / 10000), 120);
+    if (width < 480) return Math.min(Math.floor(window.innerWidth * window.innerHeight / 8000), 120);
+    else if (width < 768) return Math.min(Math.floor(window.innerWidth * window.innerHeight / 6000), 150);
+    else return Math.min(Math.floor(window.innerWidth * window.innerHeight / 8000), 180);
   }
 
   const nodeCount = getNodeCount();
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const dx = nodes[i].x - nodes[j].x;
         const dy = nodes[i].y - nodes[j].y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        const connectionDistance = window.innerWidth < 768 ? 120 : 150;
+        const connectionDistance = window.innerWidth < 768 ? 80 : 150;
 
         if (distance < connectionDistance) {
           const opacity = 1 - distance / connectionDistance;
@@ -127,13 +127,13 @@ document.addEventListener('DOMContentLoaded', () => {
           ctx.moveTo(nodes[i].x, nodes[i].y);
           ctx.lineTo(nodes[j].x, nodes[j].y);
           // Make connections more visible on mobile
-          const connectionOpacity = window.innerWidth < 768 ? opacity * 0.8 : opacity * 0.5;
+          const connectionOpacity = window.innerWidth < 768 ? opacity * 1.2 : opacity * 0.5;
           ctx.strokeStyle = `rgba(186, 104, 200, ${connectionOpacity})`;
           ctx.lineWidth = 1;
           ctx.stroke();
 
           // Increase data transfer frequency for mobile devices
-          const transferProbability = window.innerWidth < 768 ? 0.005 : 0.002;
+          const transferProbability = window.innerWidth < 768 ? 0.015 : 0.002;
           if (Math.random() < transferProbability) {
             animateDataTransfer(nodes[i], nodes[j]);
           }
@@ -156,10 +156,10 @@ document.addEventListener('DOMContentLoaded', () => {
       this.startNode = startNode;
       this.endNode = endNode;
       this.progress = 0;
-      this.speed = Math.random() * 0.01 + 0.01;
+      this.speed = Math.random() * 0.015 + 0.015;
       // Increase data transfer particle size on mobile
       const isMobile = window.innerWidth < 768;
-      this.size = isMobile ? (Math.random() * 4 + 3) : (Math.random() * 3 + 2);
+      this.size = isMobile ? (Math.random() * 6 + 5) : (Math.random() * 3 + 2);
     }
 
     update() {
