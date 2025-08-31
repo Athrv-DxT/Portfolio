@@ -191,11 +191,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (charIndex < greeting.length) {
         greetingElement.textContent += greeting.charAt(charIndex);
         charIndex++;
-        setTimeout(typeChar, 100);
+        setTimeout(typeChar, 70);
       } else {
         setTimeout(() => {
           if (onComplete) onComplete();
-        }, 1200);
+        }, 800);
       }
     }
 
@@ -209,11 +209,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (text.length > 0) {
         text = text.substring(0, text.length - 1);
         greetingElement.textContent = text;
-        setTimeout(deleteChar, 70);
+        setTimeout(deleteChar, 50);
       } else {
         setTimeout(() => {
           if (onComplete) onComplete();
-        }, 400);
+        }, 200);
       }
     }
 
@@ -255,6 +255,50 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Visitor Counter Functionality
+  let visitorCount = parseInt(localStorage.getItem('visitorCount')) || 0;
+  let hasVisited = localStorage.getItem('hasVisited') === 'true';
+  let portfolioEntryTime = null;
+  let visitorCounted = false;
+
+  // Initialize visitor counter display
+  function updateVisitorCounter() {
+    const counterElement = document.getElementById('visitor-count');
+    if (counterElement) {
+      counterElement.textContent = visitorCount;
+    }
+  }
+
+  // Check if visitor should be counted
+  function checkVisitorCount() {
+    if (!hasVisited && portfolioEntryTime && !visitorCounted) {
+      const timeSpent = Date.now() - portfolioEntryTime;
+      if (timeSpent >= 7000) { // 7 seconds
+        visitorCount++;
+        visitorCounted = true;
+        hasVisited = true;
+        localStorage.setItem('visitorCount', visitorCount.toString());
+        localStorage.setItem('hasVisited', 'true');
+        
+        // Update display with animation
+        const counterElement = document.getElementById('visitor-count');
+        if (counterElement) {
+          counterElement.classList.add('updated');
+          counterElement.textContent = visitorCount;
+          setTimeout(() => {
+            counterElement.classList.remove('updated');
+          }, 500);
+        }
+      }
+    }
+  }
+
+  // Initialize counter display
+  updateVisitorCounter();
+
+  // Check visitor count every second after portfolio entry
+  setInterval(checkVisitorCount, 1000);
+
   enterButton.addEventListener('click', () => {
     document.body.classList.add('portfolio-active');
     neuralNetwork.classList.add('fade');
@@ -268,6 +312,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       setTimeout(() => {
         portfolioSection.classList.add('visible');
+        // Update browser history to show portfolio page
+        window.history.pushState({ page: 'portfolio' }, 'Portfolio', '#portfolio');
+        
+        // Start tracking time when portfolio becomes visible
+        portfolioEntryTime = Date.now();
       }, 100);
     }, 1000);
   });
@@ -352,124 +401,221 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-  
-  // Testaments section functionality
-  function initTestamentsSection() {
-    const books = document.querySelectorAll('.book');
-    const bookPreview = document.getElementById('book-preview');
-    const previewContent = document.querySelector('.preview-content');
-    const previewClose = document.querySelector('.preview-close');
-    const previewImage = document.getElementById('preview-image');
-    const previewTitle = document.getElementById('preview-title');
-    const previewDescription = document.getElementById('preview-description');
-    
-    const certificateData = {
-      certificate1: {
-        title: "Python Basics",
-        issuer: "HackerRank",
-        description: "Completed the Python Basics certification, demonstrating proficiency in Python programming fundamentals.",
-        image: "testaments/pythonbasic_certficate.png" 
-      },
-      certificate2: {
-        title: "Programming, Data Structures And Algorithms Using Python",
-        issuer: "NPTEL - IIT Madras",
-        description: "Completed the NPTEL course on Programming, Data Structures, and Algorithms using Python, covering advanced programming concepts.",
-        image: "testaments/python_dsacertf.png" 
-      },
-      certificate3: {
-        title: "Hack4Health Hackathon",
-        issuer: "Health-O-Tech Club",
-        description: "Participated in the Hack4Health Hackathon, making a medical report simplifier.",
-        image: "testaments/Hack4Health_certificate.jpg" 
-      },
-      certificate4: {
-        title: "BCGX GenAI Job Simulation",
-        issuer: "BCGx - Forage",
-        description: "Completed the BCGX GenAI Job Simulation, gaining insights data analysis and AI.",
-        image: "testaments/BCGX_certficate.jpg" 
-      },
-      certificate5: {
-        title: "Matlab Onramp",
-        issuer: "MathWorks",
-        description: "Completed the Matlab Onramp course, learning the basics of MATLAB programming and data analysis.",
-        image: "testaments/matlab_certificate.png" 
-      },
-      certificate6: {
-        title: "Android Club - Winter of Code",
-        issuer: "Android Club",
-        description: "Participated in the Android Club's Winter of Code program, contributing to open-source projects.",
-        image: "testaments/acwoc_certificate.png" 
-      },
-      letter1: {
-        title: "Letter of Appointment - GFG Student Chapter",
-        issuer: "GeeksforGeeks",
-        description: "OFficial appointment as the Tech team member for the GFG Student Chapter, responsible for contributing to technical aspects and events for the club",
-        image: "testaments/gfg_loa.jpg" 
-      },
-      letter2: {
-        title: "Letter of Appointment - iCreate Club",
-        issuer: "iCreate",
-        description: "Official Appointment as the Web Development team member for the iCreate Club, responsible for creating and maintaining the club's website.",
-        image: "testaments/ic_offerletter.jpg" 
-      }
-    };
-    
-    books.forEach(book => {
-      book.addEventListener('click', function() {
-        const certificateId = this.getAttribute('data-certificate');
-        const data = certificateData[certificateId];
-        
-        previewTitle.textContent = data.title;
-        previewDescription.textContent = data.description;
-        
-        previewImage.src = data.image;
-        
-        bookPreview.classList.add('active');
-        setTimeout(() => {
-          previewContent.classList.add('active');
-        }, 100);
-      });
-    });
-    
-    previewClose.addEventListener('click', function() {
-      previewContent.classList.remove('active');
-      setTimeout(() => {
-        bookPreview.classList.remove('active');
-      }, 500);
-    });
-    
-    bookPreview.addEventListener('click', function(e) {
-      if (e.target === bookPreview) {
-        previewContent.classList.remove('active');
-        setTimeout(() => {
-          bookPreview.classList.remove('active');
-        }, 500);
-      }
-    });
-    
-    books.forEach(book => {
-      book.addEventListener('mousemove', function(e) {
-        const bookRect = this.getBoundingClientRect();
-        const bookCenterX = bookRect.left + bookRect.width / 2;
-        const bookCenterY = bookRect.top + bookRect.height / 2;
-        
-        const mouseX = e.clientX;
-        const mouseY = e.clientY;
-        
-        const angleY = (mouseX - bookCenterX) / 25;
-        const angleX = (bookCenterY - mouseY) / 25;
-        
-        this.style.transform = `translateZ(20px) translateY(-20px) rotateY(${angleY}deg) rotateX(${angleX}deg)`;
-      });
-      
-      book.addEventListener('mouseleave', function() {
-        this.style.transform = '';
-      });
-    });
-  }
-  
+
   initPortfolioSection();
   initializeSkillCards();
   initProjectsSection();
-  initTestamentsSection(); 
-});
+
+  // Certificate Modal Functionality
+  const certificateModal = document.getElementById('certificate-modal');
+  const modalClose = document.getElementById('modal-close');
+  const modalImage = document.getElementById('modal-certificate-image');
+
+  // Function to open modal with certificate image
+  function openCertificateModal(imageSrc, isSpecialCertificate = false) {
+    modalImage.src = imageSrc;
+    
+    // Apply special sizing for problematic certificates
+    if (isSpecialCertificate) {
+      certificateModal.classList.add('special-sizing');
+    } else {
+      certificateModal.classList.remove('special-sizing');
+    }
+    
+    certificateModal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+  }
+
+  // Function to close modal
+  function closeCertificateModal() {
+    certificateModal.classList.remove('active');
+    document.body.style.overflow = ''; // Restore scrolling
+  }
+
+  // Event listeners for modal
+  modalClose.addEventListener('click', closeCertificateModal);
+  certificateModal.addEventListener('click', (e) => {
+    if (e.target === certificateModal) {
+      closeCertificateModal();
+    }
+  });
+
+  // Close modal on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && certificateModal.classList.contains('active')) {
+      closeCertificateModal();
+    }
+  });
+
+  // Update certificate links to use modal
+  document.querySelectorAll('.certification-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const imageSrc = link.getAttribute('href');
+      
+      // Check if this is one of the problematic certificates
+      const isSpecialCertificate = imageSrc.includes('nss_recruitmentletter') || 
+                                  imageSrc.includes('gfg_loa') || 
+                                  imageSrc.includes('ic_offerletter');
+      
+      openCertificateModal(imageSrc, isSpecialCertificate);
+    });
+  });
+
+  // Upcoming Projects Card Functionality - Modal Approach
+  function initializeUpcomingProjectsCard() {
+    const upcomingCard = document.getElementById('upcoming-projects-card');
+    const upcomingModal = document.getElementById('upcoming-projects-modal');
+    const modalClose = document.getElementById('modal-upcoming-close');
+    const carouselDots = document.querySelectorAll('.carousel-dot');
+    const projectCards = document.querySelectorAll('.upcoming-project-modal');
+    
+    let currentProject = 0;
+
+    // Open modal when card is clicked
+    upcomingCard.addEventListener('click', function() {
+      upcomingModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      showProject(currentProject);
+    });
+
+    // Close modal when close button is clicked
+    modalClose.addEventListener('click', function() {
+      upcomingModal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    });
+
+    // Close modal when clicking outside
+    upcomingModal.addEventListener('click', function(e) {
+      if (e.target === upcomingModal) {
+        upcomingModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && upcomingModal.classList.contains('active')) {
+        upcomingModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // Carousel navigation
+    carouselDots.forEach((dot, index) => {
+      dot.addEventListener('click', function() {
+        currentProject = index;
+        showProject(currentProject);
+        updateCarouselDots();
+      });
+    });
+
+    // Function to show specific project
+    function showProject(index) {
+      projectCards.forEach((card, i) => {
+        if (i === index) {
+          card.style.display = 'block';
+          card.style.opacity = '0';
+          card.style.transform = 'translateX(20px)';
+          
+          setTimeout(() => {
+            card.style.transition = 'all 0.4s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateX(0)';
+          }, 50);
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Function to show all projects (for initial view)
+    function showAllProjects() {
+      projectCards.forEach((card, i) => {
+        card.style.display = 'block';
+        card.style.opacity = '1';
+        card.style.transform = 'translateX(0)';
+        card.style.transition = 'all 0.4s ease';
+      });
+    }
+
+    // Initialize: Show all projects by default
+    showAllProjects();
+    updateCarouselDots();
+
+    // Function to update carousel dots
+    function updateCarouselDots() {
+      carouselDots.forEach((dot, index) => {
+        if (index === currentProject) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+
+    // Add hover effects
+    upcomingCard.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-5px)';
+      this.style.boxShadow = '0 15px 30px rgba(255, 235, 59, 0.2)';
+    });
+
+    upcomingCard.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0)';
+      this.style.boxShadow = '0 10px 20px rgba(255, 235, 59, 0.1)';
+    });
+
+    // Add keyboard support
+    upcomingCard.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        upcomingCard.click();
+      }
+    });
+
+    // Make the card focusable
+    upcomingCard.setAttribute('tabindex', '0');
+
+    // Initialize first project
+    showProject(0);
+    updateCarouselDots();
+  }
+
+  // Initialize the upcoming projects card
+  initializeUpcomingProjectsCard();
+
+  // Handle browser back/forward navigation
+  window.addEventListener('popstate', function(event) {
+    if (event.state && event.state.page === 'portfolio') {
+      // User navigated back to portfolio page
+      showPortfolioPage();
+    } else {
+      // User navigated back to start page
+      showStartPage();
+    }
+  });
+
+  // Check initial page state (if user refreshes on portfolio page)
+  if (window.location.hash === '#portfolio') {
+    showPortfolioPage();
+  }
+
+  // Function to show portfolio page
+  function showPortfolioPage() {
+    introSection.style.display = 'none';
+    document.body.classList.add('portfolio-active');
+    neuralNetwork.classList.add('fade');
+    portfolioSection.style.display = 'block';
+    portfolioSection.classList.add('visible');
+  }
+
+  // Function to show start page
+  function showStartPage() {
+    introSection.style.display = 'block';
+    introSection.style.opacity = '1';
+    document.body.classList.remove('portfolio-active');
+    neuralNetwork.classList.remove('fade');
+    portfolioSection.style.display = 'none';
+    portfolioSection.classList.remove('visible');
+  }
+}); // Closing the DOMContentLoaded listener
